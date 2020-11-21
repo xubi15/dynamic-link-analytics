@@ -57,57 +57,17 @@ export default function StickyHeadTable() {
     const [isData, setIsData] = React.useState(false)
     const [backUpData, setBackUpData] = React.useState([])
     const [countSum, setCountSum] = React.useState(0)
-    const [platform, setPlatform] = React.useState('')
+    const [platform, setPlatform] = React.useState('ALL')
     // to hold events
-    const [events, setEvents] = React.useState('')
+    const [events, setEvents] = React.useState('ALL')
     // to hold all the events
     const [allEvents, setAllEvents] = React.useState([])
     const [allPlatforms, setAllPlatforms] = React.useState([])
 
-    // triggered when Platform dropdown changed
-    const handleChangePlatform = (event) => {
-        setPlatform(event.target.value)
-        var platformData = backUpData.filter(function (el) {
-            //console.log("platform: " + el.platform + " state: " + event.target.value)
-            if (event.target.value === "ALL") {
-                return backUpData
-            } else {
-                return el.platform === event.target.value
-            }
-        })
-        var countTemp = 0
-        platformData.map(val => {
-            countTemp += Number(val.count)
-        })
-        setCountSum(countTemp)
-        setData(platformData)
-    }
-
-    // triggered when event dropdown changed
-    const handleChangeEvent = (event) => {
-        setEvents(event.target.value)
-        var eventData = data.filter(function (el) {
-            //console.log("event: " + el.event + " ~~~state: " + event.target.value)
-            if (event.target.value === "ALL") {
-                return backUpData
-            } else {
-                return el.event === event.target.value
-            }
-        })
-
-        var countTemp = 0
-        eventData.map(val => {
-            countTemp += Number(val.count)
-        })
-        setCountSum(countTemp)
-        setData(eventData)
-
-    }
-
     useEffect(() => {
         const func = () => {
             var eventData = backUpData.filter(function (el) {
-                //console.log("event: " + el.event + " ~~~state: " + event.target.value)
+                // console.log("~platform = " + platform + " ~el.platform = " + el.platform + " ~events = " + events + " ~el.event = " + el.event);
                 if (platform === "ALL" && events === "ALL") {
                     return backUpData
                 } else if (el.event === events && platform === "ALL") {
